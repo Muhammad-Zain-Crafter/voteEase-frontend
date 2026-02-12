@@ -1,7 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../../axiosInstane";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -25,7 +24,7 @@ const Login = () => {
         ? { email: formData.identifier, password: formData.password }
         : { username: formData.identifier, password: formData.password };
 
-      const res = await axiosInstance.post("/api/v1/users/login", payload, {
+      const res = await axios.post("/api/v1/users/login", payload, {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
       });
@@ -73,8 +72,7 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700
-            cursor-pointer transition"
+            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
           >
             Login
           </button>
@@ -85,7 +83,7 @@ const Login = () => {
           <button
             type="button"
             onClick={() => navigate("/register")}
-            className="text-blue-600 hover:underline cursor-pointer"
+            className="text-blue-600 hover:underline"
           >
             Sign up
           </button>

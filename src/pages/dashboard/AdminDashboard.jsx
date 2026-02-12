@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({ totalCandidates: 0, totalVotes: 0 });
+  const [loading, setLoading] = useState(false); // For button loading state
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,6 +24,22 @@ const AdminDashboard = () => {
     };
     fetchStats();
   }, []);
+
+  const handleResetVotes = async () => {
+    if (!window.confirm("Are you sure you want to reset all votes?")) return;
+
+    setLoading(true);
+    try {
+      await axios.post("/api/v1/candidates/reset-votes");
+      setStats((prev) => ({ ...prev, totalVotes: 0 })); // Reset votes in state
+      alert("Votes have been reset successfully!");
+    } catch (err) {
+      console.error("Error resetting votes", err);
+      alert("Failed to reset votes.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 sm:p-6">
@@ -49,12 +66,21 @@ const AdminDashboard = () => {
             <h3 className="text-xl font-semibold text-center sm:text-left">
               Manage Candidates
             </h3>
-            <button
-              onClick={() => navigate("/admin/candidates/create")}
-              className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 w-full sm:w-auto"
-            >
-              + Add Candidate
-            </button>
+            <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
+              <button
+                onClick={() => navigate("/admin/candidates/create")}
+                className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 w-full sm:w-auto"
+              >
+                + Add Candidate
+              </button>
+              <button
+                onClick={handleResetVotes}
+                disabled={loading}
+                className="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 w-full sm:w-auto"
+              >
+                {loading ? "Resetting..." : "Reset Votes"}
+              </button>
+            </div>
           </div>
           <CandidateList />
         </div>

@@ -1,6 +1,6 @@
 import { useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../../axiosInstane";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -37,7 +37,7 @@ const Register = () => {
     }
 
     try {
-      await axiosInstance.post("/api/v1/users/register", formData, {
+      await axios.post("/api/v1/users/register", formData, {
         headers: { "Content-Type": "application/json" },
       });
 
@@ -127,8 +127,7 @@ const Register = () => {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700
-             transition cursor-pointer"
+            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
           >
             Register
           </button>
@@ -139,7 +138,7 @@ const Register = () => {
           <button
             type="button"
             onClick={() => navigate("/login")}
-            className="text-blue-600 hover:underline cursor-pointer"
+            className="text-blue-600 hover:underline"
           >
             Sign in
           </button>
