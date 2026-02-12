@@ -4,6 +4,7 @@ import { UserCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import UpdateAccount from "./UpdateAccount";
 import ChangePassword from "./ChangePassword";
+import API from "../../API";
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
@@ -15,7 +16,7 @@ const Profile = () => {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("/api/v1/users/profile", {
+        const res = await API.get("/api/v1/users/profile", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setProfile(res.data.data);

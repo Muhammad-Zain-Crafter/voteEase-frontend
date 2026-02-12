@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import CandidateList from "../candidate/CandidateList";
 import { useNavigate } from "react-router-dom";
+import API from "../../API";
 
 const AdminDashboard = () => {
   const [stats, setStats] = useState({ totalCandidates: 0, totalVotes: 0 });
@@ -11,7 +12,7 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const res = await axios.get("/api/v1/candidates/vote/count");
+        const res = await API.get("/api/v1/candidates/vote/count");
         const candidates = res.data.data || [];
         const totalVotes = candidates.reduce(
           (sum, c) => sum + (c.voteCount || 0),
@@ -30,7 +31,7 @@ const AdminDashboard = () => {
 
     setLoading(true);
     try {
-      await axios.post("/api/v1/candidates/reset-votes");
+      await API.post("/api/v1/candidates/reset-votes");
       setStats((prev) => ({ ...prev, totalVotes: 0 })); // Reset votes in state
       alert("Votes have been reset successfully!");
     } catch (err) {

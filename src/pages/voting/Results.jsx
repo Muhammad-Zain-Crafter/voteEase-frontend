@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import API from "../../API";
 
 const Results = () => {
   const [candidates, setCandidates] = useState([]);
@@ -22,7 +23,7 @@ const Results = () => {
           return;
         }
 
-        const res = await axios.get("/api/v1/candidates/vote/count", {
+        const res = await API.get("/api/v1/candidates/vote/count", {
           headers: { Authorization: `Bearer ${token}` },
         });
 

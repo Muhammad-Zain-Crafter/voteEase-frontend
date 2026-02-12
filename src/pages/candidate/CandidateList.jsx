@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import API from "../../API";
 
 const CandidateList = () => {
   const [candidates, setCandidates] = useState([]);
@@ -11,7 +12,7 @@ const CandidateList = () => {
   useEffect(() => {
     const fetchCandidates = async () => {
       try {
-        const res = await axios.get("/api/v1/candidates/vote/count"); 
+        const res = await API.get("/api/v1/candidates/vote/count"); 
         setCandidates(res.data.data || []);
       } catch (err) {
         console.error("Error fetching candidates", err);

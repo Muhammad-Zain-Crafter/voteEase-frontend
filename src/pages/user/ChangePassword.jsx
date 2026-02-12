@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import API from "../../API";
 
 const ChangePassword = () => {
   const [oldPassword, setOldPassword] = useState("");
@@ -15,7 +16,7 @@ const ChangePassword = () => {
     try {
       const token = localStorage.getItem("token"); 
 
-      const res = await axios.post(
+      const res = await API.post(
         "/api/v1/users/change-password", 
         { oldPassword, newPassword },
         {

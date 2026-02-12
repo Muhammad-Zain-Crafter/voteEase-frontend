@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Users, UserCircle } from "lucide-react";
+import API from "../../API";
 
 const VoterDashboard = () => {
   const [candidates, setCandidates] = useState([]);
@@ -15,7 +16,7 @@ const VoterDashboard = () => {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("/api/v1/users/profile", {
+        const res = await API.get("/api/v1/users/profile", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setProfile(res.data.data);
@@ -35,7 +36,7 @@ const VoterDashboard = () => {
   useEffect(() => {
     const fetchCandidates = async () => {
       try {
-        const res = await axios.get("/api/v1/candidates/c");
+        const res = await API.get("/api/v1/candidates/c");
         setCandidates(res.data.data || []);
       } catch (err) {
         console.error(err);
@@ -90,7 +91,7 @@ const VoterDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-500 to-blue-300 p-6">
+    <div className="min-h-screen bg-linear-to-r from-blue-500 to-blue-300 p-6">
       <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-2xl p-6">
         <h2 className="text-2xl font-bold text-center text-blue-600 mb-6">
           Voter Dashboard

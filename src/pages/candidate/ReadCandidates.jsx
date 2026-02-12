@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import API from "../../API";
 
 const ReadCandidates = () => {
   const [candidates, setCandidates] = useState([]);
@@ -8,7 +9,7 @@ const ReadCandidates = () => {
   useEffect(() => {
     const fetchCandidates = async () => {
       try {
-        const res = await axios.get("/api/v1/candidates/c");
+        const res = await API.get("/api/v1/candidates/c");
         setCandidates(res.data?.data || []);
       } catch (err) {
         console.error("Error fetching candidates:", err);

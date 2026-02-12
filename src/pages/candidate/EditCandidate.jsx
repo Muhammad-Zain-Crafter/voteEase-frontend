@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import API from "../../API";
 
 const EditCandidate = () => {
   const { candidateId  } = useParams();
@@ -18,7 +19,7 @@ const EditCandidate = () => {
   useEffect(() => {
     const fetchCandidate = async () => {
       try {
-        const res = await axios.get(`/api/v1/candidates/c/${candidateId }`);
+        const res = await API.get(`/api/v1/candidates/c/${candidateId }`);
         setCandidate(res.data.data);
       } catch (err) {
         console.error("Error fetching candidate", err);

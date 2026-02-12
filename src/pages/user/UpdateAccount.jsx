@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import API from "../../API";
 
 const UpdateAccount = () => {
   const [formData, setFormData] = useState({
@@ -16,7 +17,7 @@ const UpdateAccount = () => {
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("/api/v1/users/profile", {
+        const res = await API.get("/api/v1/users/profile", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setFormData({

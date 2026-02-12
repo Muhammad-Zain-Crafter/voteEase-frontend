@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import API from "../../API";
 
 const CreateCandidate = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const CreateCandidate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(
+      await API.post(
         "/api/v1/candidates/create-candidate",
         candidate,
         {

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import statusImg from "../../assets/voting-status.png";
+import API from "../../API";
 
 const VotingStatus = () => {
   const [isVotingOpen, setIsVotingOpen] = useState(false);
@@ -34,7 +35,7 @@ const VotingStatus = () => {
   // Open voting
   const handleOpenVoting = async () => {
     try {
-      const { data } = await axios.post(
+      const { data } = await API.post(
         "/api/v1/voting-status/open",
         {},
         { headers: { Authorization: `Bearer ${token}` } }
@@ -49,7 +50,7 @@ const VotingStatus = () => {
   // Close voting
   const handleCloseVoting = async () => {
     try {
-      const { data } = await axios.post(
+      const { data } = await API.post(
         "/api/v1/voting-status/close",
         {},
         { headers: { Authorization: `Bearer ${token}` } }
