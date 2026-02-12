@@ -1,6 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../axiosInstane";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -37,7 +37,7 @@ const Register = () => {
     }
 
     try {
-      await axios.post("/api/v1/users/register", formData, {
+      await axiosInstance.post("/api/v1/users/register", formData, {
         headers: { "Content-Type": "application/json" },
       });
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../axiosInstane";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -24,7 +25,7 @@ const Login = () => {
         ? { email: formData.identifier, password: formData.password }
         : { username: formData.identifier, password: formData.password };
 
-      const res = await axios.post("/api/v1/users/login", payload, {
+      const res = await axiosInstance.post("/api/v1/users/login", payload, {
         headers: { "Content-Type": "application/json" },
         withCredentials: true,
       });
