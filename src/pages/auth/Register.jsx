@@ -4,13 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    fullName: "",
-    password: "",
-    cnicNumber: "",
-    age: "",
-    role: "voter",
+    username: "", email: "", fullName: "", password: "", cnicNumber: "", age: "", role: "voter",
   });
 
   const [error, setError] = useState("");
@@ -24,19 +18,19 @@ const Register = () => {
     e.preventDefault();
     setError("");
 
-    // 🔹 CNIC validation (exactly 13 digits)
+    // CNIC validation (must be exactly 13 digits)
     if (!/^\d{13}$/.test(formData.cnicNumber)) {
       setError("CNIC must be exactly 13 digits.");
       return;
     }
 
-    // 🔹 Password validation (minimum 6 characters)
+    // Password validation (must be at least 6 characters)
     if (formData.password.length < 6) {
       setError("Password must be at least 6 characters long.");
       return;
     }
 
-    // 🔹 Age validation (must be 18 or older)
+    // Age validation (must be at least 18)
     if (Number(formData.age) < 18) {
       setError("You must be at least 18 years old to register.");
       return;
@@ -58,7 +52,7 @@ const Register = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 to-blue-300">
+    <div className="flex items-center justify-center min-h-screen bg-linear-to-r from-blue-500 to-blue-300">
       <div className="bg-white shadow-lg rounded-2xl p-6 w-96 m-8">
         <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
 
@@ -133,7 +127,8 @@ const Register = () => {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700
+             transition cursor-pointer"
           >
             Register
           </button>
@@ -144,7 +139,7 @@ const Register = () => {
           <button
             type="button"
             onClick={() => navigate("/login")}
-            className="text-blue-600 hover:underline"
+            className="text-blue-600 hover:underline cursor-pointer"
           >
             Sign in
           </button>

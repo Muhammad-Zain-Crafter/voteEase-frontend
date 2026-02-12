@@ -96,7 +96,7 @@ const Home = () => {
   return (
     <div className="font-sans">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-blue-500 to-blue-400 text-white">
+      <section className="bg-linear-to-r from-blue-500 to-blue-400 text-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 py-20 grid md:grid-cols-2 gap-10 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -104,7 +104,7 @@ const Home = () => {
             transition={{ duration: 1.5 }}
             className="space-y-6 mb-6 md:ml-4 text-center md:text-left"
           >
-            <h1 className="text-4xl md:text-5xl font-extrabold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-red-400 animate-gradient-x">
+            <h1 className="text-4xl md:text-5xl font-extrabold leading-tight bg-clip-text text-transparent bg-linear-to-r from-yellow-400 to-red-400 animate-gradient-x">
               Your <span>Voice</span>,<br />
               Your <span>Choice</span>,<br />
               Your <span>Vote</span>
@@ -142,7 +142,7 @@ const Home = () => {
             <img
               src={hero}
               alt="Voting Illustration"
-              className="w-[450px] max-w-xs sm:max-w-md drop-shadow-2xl"
+              className="w-112.5 max-w-xs sm:max-w-md drop-shadow-2xl"
             />
           </motion.div>
         </div>
@@ -174,7 +174,7 @@ const Home = () => {
       </section>
 
       {/* Security & Trust Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-50 to-blue-100">
+      <section className="py-20 bg-linear-to-r from-blue-50 to-blue-100">
         <div className="max-w-7xl mx-auto px-6 lg:px-12 grid md:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
@@ -259,7 +259,7 @@ const Home = () => {
       </section>
 
       {/* Final CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-500 to-blue-400 text-white text-center">
+      <section className="py-20 bg-linear-to-r from-blue-500 to-blue-400 text-white text-center">
         <h2 className="text-3xl md:text-4xl font-bold mb-6">
           Ready to Cast Your Vote?
         </h2>

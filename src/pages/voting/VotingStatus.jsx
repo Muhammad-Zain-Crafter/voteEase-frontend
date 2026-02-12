@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import img from "../../assets/voting-status.png";
+import statusImg from "../../assets/voting-status.png";
 
 const VotingStatus = () => {
   const [isVotingOpen, setIsVotingOpen] = useState(false);
@@ -66,7 +66,7 @@ const VotingStatus = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-100 ">
-      <main className="flex-grow flex items-center justify-center">
+      <main className="grow flex items-center justify-center">
         <div className="p-6 max-w-lg w-full bg-white shadow-lg rounded-xl text-center">
           <h2 className="md:text-3xl text-2xl font-bold mb-4">Voting Status</h2>
 
@@ -80,7 +80,7 @@ const VotingStatus = () => {
 
           <div className="flex justify-center mb-6">
             <img
-              src={img}
+              src={statusImg}
               alt="Voting Status"
               className="w-40 h-40 object-contain drop-shadow-md"
             />

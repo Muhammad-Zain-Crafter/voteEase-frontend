@@ -51,7 +51,7 @@ const Results = () => {
   const totalVotes = candidates.reduce((sum, c) => sum + (c.voteCount || 0), 0);
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-purple-500 to-indigo-400 p-6 flex justify-center items-center">
+    <div className="min-h-screen bg-linear-to-r from-purple-500 to-indigo-400 p-6 flex justify-center items-center">
       <div className="max-w-3xl w-full bg-white shadow-lg rounded-2xl p-6">
         <h2 className="text-2xl font-bold text-center text-indigo-600 mb-6">
           Voting Results

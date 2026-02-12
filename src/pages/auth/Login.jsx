@@ -45,7 +45,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-[542px] bg-gradient-to-r from-blue-500 to-blue-300">
+    <div className="flex items-center justify-center h-135.5 bg-linear-to-r from-blue-500 to-blue-300">
       <div className="bg-white shadow-lg rounded-2xl p-6 w-96 m-2">
         <h2 className="text-2xl font-bold mb-6 text-center">Login</h2>
         {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
@@ -72,7 +72,8 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700
+            cursor-pointer transition"
           >
             Login
           </button>
@@ -83,7 +84,7 @@ const Login = () => {
           <button
             type="button"
             onClick={() => navigate("/register")}
-            className="text-blue-600 hover:underline"
+            className="text-blue-600 hover:underline cursor-pointer"
           >
             Sign up
           </button>
