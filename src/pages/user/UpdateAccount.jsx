@@ -17,9 +17,8 @@ const UpdateAccount = () => {
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await API.get("/api/v1/users/profile", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await API.patch("/api/v1/users/update-account-details", formData);
+
         setFormData({
           fullName: res.data.data.fullName || "",
           username: res.data.data.username || "",
