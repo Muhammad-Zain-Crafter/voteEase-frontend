@@ -19,25 +19,36 @@ const CreateCandidate = () => {
   };
 
   // Handle create candidate
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      await API.post(
-        "/api/v1/candidates/create-candidate",
-        candidate,
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      );
-      setMessage("Candidate created successfully!");
-      setTimeout(() => navigate("/admin/candidates"), 1500);
-    } catch (err) {
-      console.error("Error creating candidate", err);
-      setMessage("Failed to create candidate.");
-    }
-  };
+const handleSubmit = async (e) => {
+  e.preventDefault();
+
+  try {
+    const response = await API.post(
+      "/api/v1/candidates/create-candidate",
+      {
+        name: candidate.name.trim(),
+        party: candidate.party.trim(),
+        age: Number(candidate.age),
+      }
+    );
+
+    console.log(response.data);
+
+    setMessage("Candidate created successfully!");
+    setTimeout(() => navigate("/admin/candidates"), 1500);
+  } catch (err) {
+    console.log("FULL ERROR:", err);
+    console.log("STATUS:", err.response?.status);
+    console.log("DATA:", err.response?.data);
+
+    setMessage(
+      err.response?.data?.message ||
+      `Error ${err.response?.status}`
+    );
+  }
+};
+
+
 
   return (
     <div className="max-w-lg mx-auto mt-10 p-6 bg-white shadow-md rounded-xl">

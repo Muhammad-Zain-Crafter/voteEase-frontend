@@ -26,7 +26,6 @@ const Login = () => {
 
       const res = await API.post("/api/v1/users/login", payload, {
         headers: { "Content-Type": "application/json" },
-        withCredentials: true,
       });
 
       if (res.data?.data?.accessToken) {

@@ -28,7 +28,7 @@ const CandidateList = () => {
     if (!window.confirm("Are you sure you want to delete this candidate?")) return;
 
     try {
-      await axios.delete(`/api/v1/candidates/c/${candidateId}`);
+      await API.delete(`/api/v1/candidates/c/${candidateId}`);
       setCandidates(candidates.filter((c) => c._id !== candidateId));
     } catch (err) {
       console.error("Error deleting candidate", err);

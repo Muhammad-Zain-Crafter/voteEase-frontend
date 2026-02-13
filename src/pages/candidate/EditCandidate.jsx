@@ -40,7 +40,7 @@ const EditCandidate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.patch(`/api/v1/candidates/c/${candidateId }`, candidate);
+      await API.patch(`/api/v1/candidates/c/${candidateId }`, candidate);
       setMessage("Candidate updated successfully!");
       setTimeout(() => navigate("/admin/candidates"), 1500); // redirect back after success
     } catch (err) {
