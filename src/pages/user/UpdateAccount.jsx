@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import API from "../../API";
 
 const UpdateAccount = () => {
   const [formData, setFormData] = useState({
@@ -9,16 +9,16 @@ const UpdateAccount = () => {
     cnicNumber: "",
     age: "",
   });
+
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
 
+  // ✅ Fetch Profile
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const res = await API.get("/api/v1/users/profile", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await API.get("/api/v1/users/profile");
+
         setFormData({
           fullName: res.data.data.fullName || "",
           username: res.data.data.username || "",
@@ -28,8 +28,10 @@ const UpdateAccount = () => {
         });
       } catch (err) {
         console.error("Failed to fetch user details", err);
+        setMessage(err.response?.data?.message || "Failed to load profile");
       }
     };
+
     fetchUser();
   }, []);
 
@@ -40,23 +42,24 @@ const UpdateAccount = () => {
     });
   };
 
+  // ✅ Update Account
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     setMessage("");
 
     try {
-      const token = localStorage.getItem("token");
-      const res = await axios.patch(
-        "/api/v1/users/update-account-details", 
-        formData,
+      const res = await API.patch(
+        "/api/v1/users/update-account-details",
         {
-          headers: { Authorization: `Bearer ${token}` },
+          ...formData,
+          age: formData.age ? Number(formData.age) : undefined,
         }
       );
 
       setMessage(res.data.message || "Account updated successfully!");
     } catch (err) {
+      console.error(err);
       setMessage(err.response?.data?.message || "Update failed, try again.");
     } finally {
       setLoading(false);
@@ -69,7 +72,9 @@ const UpdateAccount = () => {
         onSubmit={handleSubmit}
         className="bg-white p-6 rounded-xl shadow-md w-96"
       >
-        <h2 className="text-xl font-bold mb-4 text-center">Update Account</h2>
+        <h2 className="text-xl font-bold mb-4 text-center">
+          Update Account
+        </h2>
 
         <input
           type="text"
@@ -125,7 +130,9 @@ const UpdateAccount = () => {
         </button>
 
         {message && (
-          <p className="mt-3 text-center text-sm text-gray-700">{message}</p>
+          <p className="mt-3 text-center text-sm text-gray-700">
+            {message}
+          </p>
         )}
       </form>
     </div>

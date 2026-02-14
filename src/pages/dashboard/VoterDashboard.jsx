@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { Users, UserCircle } from "lucide-react";
 import API from "../../API";
 
@@ -9,16 +8,12 @@ const VoterDashboard = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [votedCandidate, setVotedCandidate] = useState(null);
-  const [isVotingOpen, setIsVotingOpen] = useState(false); // 👈 new
+  const [isVotingOpen, setIsVotingOpen] = useState(false);
 
-  // Fetch profile
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const res = await API.get("/api/v1/users/profile", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await API.get("/api/v1/users/profile");
         setProfile(res.data.data);
 
         if (res.data.data.votedFor) {
@@ -29,10 +24,11 @@ const VoterDashboard = () => {
         setMessage(err.response?.data?.message || "Failed to load profile");
       }
     };
+
     fetchProfile();
   }, []);
 
-  // Fetch candidates
+  // ✅ Fetch candidates
   useEffect(() => {
     const fetchCandidates = async () => {
       try {
@@ -43,24 +39,26 @@ const VoterDashboard = () => {
         setMessage("Failed to load candidates");
       }
     };
+
     fetchCandidates();
   }, []);
 
-  // Fetch voting status
+  // ✅ Fetch voting status
   useEffect(() => {
     const fetchVotingStatus = async () => {
       try {
-        const res = await axios.get("/api/v1/voting-status/status");
+        const res = await API.get("/api/v1/voting-status/status");
         setIsVotingOpen(res.data.data.isVotingOpen);
       } catch (err) {
         console.error(err);
         setMessage("Failed to load voting status");
       }
     };
+
     fetchVotingStatus();
   }, []);
 
-  // Handle voting
+  // ✅ Handle vote
   const handleVote = async (candidateId) => {
     if (!isVotingOpen) {
       setMessage("Voting is closed! You cannot vote right now.");
@@ -74,16 +72,13 @@ const VoterDashboard = () => {
 
     setLoading(true);
     setMessage("");
+
     try {
-      const token = localStorage.getItem("token");
-      await axios.post(
-        `/api/v1/candidates/vote/${candidateId}`,
-        {},
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      await API.post(`/api/v1/candidates/vote/${candidateId}`);
       setMessage("Vote cast successfully!");
       setVotedCandidate(candidateId);
     } catch (err) {
+      console.error(err);
       setMessage(err.response?.data?.message || "Failed to cast vote");
     } finally {
       setLoading(false);
@@ -98,7 +93,9 @@ const VoterDashboard = () => {
         </h2>
 
         {message && (
-          <p className="text-center mb-4 font-semibold text-black">{message}</p>
+          <p className="text-center mb-4 font-semibold text-black">
+            {message}
+          </p>
         )}
 
         {/* Profile Section */}
@@ -114,6 +111,7 @@ const VoterDashboard = () => {
                 <p className="text-sm text-gray-600 capitalize">
                   Role: {profile.role}
                 </p>
+
                 {votedCandidate && (
                   <p className="text-sm text-green-600 font-semibold">
                     You have already voted.
@@ -129,8 +127,11 @@ const VoterDashboard = () => {
           <Users className="w-5 h-5 text-blue-600" />
           List of Candidates:
         </h1>
+
         {candidates.length === 0 ? (
-          <p className="text-center text-gray-600">No candidates available</p>
+          <p className="text-center text-gray-600">
+            No candidates available
+          </p>
         ) : (
           <div className="grid md:grid-cols-2 gap-4">
             {candidates.map((candidate) => (
@@ -138,30 +139,34 @@ const VoterDashboard = () => {
                 key={candidate._id}
                 className="border rounded-xl p-4 shadow-md hover:shadow-lg transition bg-white"
               >
-                <h3 className="text-lg font-bold ">
+                <h3 className="text-lg font-bold">
                   Name:{" "}
                   <span className="font-semibold text-gray-600">
                     {candidate.name}
                   </span>
                 </h3>
+
                 <p className="text-lg font-bold">
                   Party:{" "}
                   <span className="font-semibold text-gray-600">
                     {candidate.party || "Independent"}
                   </span>
                 </p>
+
                 <p className="text-lg font-bold">
                   Age:{" "}
                   <span className="font-semibold text-gray-600">
                     {candidate.age}
                   </span>
                 </p>
+
                 <button
                   onClick={() => handleVote(candidate._id)}
                   disabled={
                     loading ||
                     !isVotingOpen ||
-                    (votedCandidate && votedCandidate !== candidate._id)
+                    (votedCandidate &&
+                      votedCandidate !== candidate._id)
                   }
                   className={`w-full mt-4 py-2 rounded-lg text-white ${
                     !isVotingOpen

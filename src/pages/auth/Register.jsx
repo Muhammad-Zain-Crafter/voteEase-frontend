@@ -4,7 +4,13 @@ import API from "../../API";
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    username: "", email: "", fullName: "", password: "", cnicNumber: "", age: "", role: "voter",
+    username: "",
+    email: "",
+    fullName: "",
+    password: "",
+    cnicNumber: "",
+    age: "",
+    role: "voter",
   });
 
   const [error, setError] = useState("");
@@ -18,33 +24,37 @@ const Register = () => {
     e.preventDefault();
     setError("");
 
-    // CNIC validation (must be exactly 13 digits)
+    // CNIC validation
     if (!/^\d{13}$/.test(formData.cnicNumber)) {
       setError("CNIC must be exactly 13 digits.");
       return;
     }
 
-    // Password validation (must be at least 6 characters)
+    // Password validation
     if (formData.password.length < 6) {
       setError("Password must be at least 6 characters long.");
       return;
     }
 
-    // Age validation (must be at least 18)
+    // Age validation
     if (Number(formData.age) < 18) {
       setError("You must be at least 18 years old to register.");
       return;
     }
 
     try {
-      await API.post("/api/v1/users/register", formData, {
-        headers: { "Content-Type": "application/json" },
+      await API.post("/api/v1/users/register", {
+        ...formData,
+        age: Number(formData.age),
       });
 
       navigate("/login");
     } catch (err) {
       if (err.response?.status === 409) {
-        setError(err.response.data.message || "Username or email already exists");
+        setError(
+          err.response.data.message ||
+          "Username or email already exists"
+        );
       } else {
         setError(err.response?.data?.message || "Registration failed");
       }
@@ -107,7 +117,7 @@ const Register = () => {
             placeholder="CNIC Number (13 digits)"
             value={formData.cnicNumber}
             onChange={(e) => {
-              const value = e.target.value.replace(/\D/g, ""); // allow only numbers
+              const value = e.target.value.replace(/\D/g, "");
               setFormData({ ...formData, cnicNumber: value });
             }}
             maxLength={13}

@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import statusImg from "../../assets/voting-status.png";
 import API from "../../API";
 
@@ -14,7 +13,7 @@ const VotingStatus = () => {
   // Fetch voting status
   const fetchVotingStatus = async () => {
     try {
-      const { data } = await axios.get("/api/v1/voting-status/status");
+      const { data } = await API.get("/api/v1/voting-status/status");
       console.log("Fetched Voting Status:", data);
       setIsVotingOpen(data.data.isVotingOpen);
     } catch (error) {
@@ -37,8 +36,6 @@ const VotingStatus = () => {
     try {
       const { data } = await API.post(
         "/api/v1/voting-status/open",
-        {},
-        { headers: { Authorization: `Bearer ${token}` } }
       );
       setMessage(data.message);
       setIsVotingOpen(true);
@@ -51,9 +48,7 @@ const VotingStatus = () => {
   const handleCloseVoting = async () => {
     try {
       const { data } = await API.post(
-        "/api/v1/voting-status/close",
-        {},
-        { headers: { Authorization: `Bearer ${token}` } }
+        "/api/v1/voting-status/close"
       );
       setMessage(data.message);
       setIsVotingOpen(false);
