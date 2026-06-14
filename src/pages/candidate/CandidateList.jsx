@@ -29,6 +29,7 @@ const CandidateList = () => {
 
     try {
       await API.delete(`/api/v1/candidates/c/${candidateId}`);
+      // Keeps only candidates whose ID does NOT match the deleted one
       setCandidates(candidates.filter((c) => c._id !== candidateId));
     } catch (err) {
       console.error("Error deleting candidate", err);

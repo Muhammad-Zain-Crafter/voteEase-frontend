@@ -48,8 +48,6 @@ const handleSubmit = async (e) => {
   }
 };
 
-
-
   return (
     <div className="max-w-lg mx-auto mt-10 p-6 bg-white shadow-md rounded-xl">
       <h2 className="text-2xl font-bold mb-6 text-center text-blue-600">

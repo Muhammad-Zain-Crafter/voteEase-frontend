@@ -24,11 +24,11 @@ const VotingStatus = () => {
   };
 
   useEffect(() => {
-    fetchVotingStatus(); // initial fetch
+    fetchVotingStatus(); 
 
     // Poll every 10s to keep status updated
     const interval = setInterval(fetchVotingStatus, 10000);
-    return () => clearInterval(interval); // cleanup
+    return () => clearInterval(interval); 
   }, []);
 
   // Open voting
@@ -82,20 +82,18 @@ const VotingStatus = () => {
             />
           </div>
 
-          {message && <p className="mb-4 text-blue-500">{message}</p>}
-
           {userRole === "admin" && (
             <div className="mt-6 flex justify-center gap-4">
               <button
                 onClick={handleOpenVoting}
-                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+                className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 cursor-pointer"
                 disabled={isVotingOpen}
               >
                 Open Voting
               </button>
               <button
                 onClick={handleCloseVoting}
-                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 cursor-pointer"
                 disabled={!isVotingOpen}
               >
                 Close Voting

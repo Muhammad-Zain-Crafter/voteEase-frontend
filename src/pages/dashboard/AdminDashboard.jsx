@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import CandidateList from "../candidate/CandidateList";
 import { useNavigate } from "react-router-dom";
 import API from "../../API";

@@ -19,7 +19,6 @@ const Login = () => {
     setError("");
 
     try {
-      // send as username if no '@' in input, otherwise as email
       const payload = formData.identifier.includes("@")
         ? { email: formData.identifier, password: formData.password }
         : { username: formData.identifier, password: formData.password };
@@ -71,7 +70,7 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 cursor-pointer"
           >
             Login
           </button>
@@ -82,7 +81,7 @@ const Login = () => {
           <button
             type="button"
             onClick={() => navigate("/register")}
-            className="text-blue-600 hover:underline"
+            className="text-blue-600 hover:underline cursor-pointer"
           >
             Sign up
           </button>
